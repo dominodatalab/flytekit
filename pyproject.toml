@@ -21,6 +21,7 @@ dependencies = [
     "diskcache>=5.2.1",
     "docker>=4.0.0,<7.0.0",
     "docstring-parser>=0.9.0",
+    "flyteidl @ https://github.com/dominodatalab/flyteidl.git@main",
     "fsspec>=2023.3.0",
     "gcsfs>=2023.3.0",
     "googleapis-common-protos>=1.57",
@@ -74,9 +75,6 @@ pyflyte-fast-execute = "flytekit.bin.entrypoint:fast_execute_task_cmd"
 pyflyte-map-execute = "flytekit.bin.entrypoint:map_execute_task_cmd"
 pyflyte = "flytekit.clis.sdk_in_container.pyflyte:main"
 flyte-cli = "flytekit.clis.flyte_cli.main:_flyte_cli"
-
-[project.dependencies]
-flyteidl = { git = "https://github.com/dominodatalab/flyteidl.git", rev = "main" }
 
 [tool.setuptools_scm]
 write_to = "flytekit/_version.py"
