@@ -88,7 +88,7 @@ script-files = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["flytekit*", "flytekit_scripts", "flyteidl]
+include = ["flytekit*", "flytekit_scripts", "flyteidl"]
 exclude = ["boilerplate", "docs", "plugins", "tests*"]
 
 [tool.pytest.ini_options]
