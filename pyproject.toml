@@ -21,7 +21,7 @@ dependencies = [
     "diskcache>=5.2.1",
     "docker>=4.0.0,<7.0.0",
     "docstring-parser>=0.9.0",
-    "flyteidl @ git+https://github.com/dominodatalab/flyteidl.git",
+    "flyteidl @ git+https://github.com/flyteorg/flyte.git@v1.12.0-b0#subdirectory=flyteidl", # install a python package from a repo subdirectory
     "fsspec>=2023.3.0",
     "gcsfs>=2023.3.0",
     "googleapis-common-protos>=1.57",
@@ -88,7 +88,7 @@ script-files = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["flytekit*", "flytekit_scripts"]
+include = ["flytekit*", "flytekit_scripts", "flyteidl]
 exclude = ["boilerplate", "docs", "plugins", "tests*"]
 
 [tool.pytest.ini_options]
