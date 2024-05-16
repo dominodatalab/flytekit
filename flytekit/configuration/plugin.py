@@ -60,7 +60,6 @@ class FlytekitPluginProtocol(Protocol):
         """Get additional context to be used for calculating the version hash."""
 
 
-
 class FlytekitPlugin:
     @staticmethod
     def get_remote(
