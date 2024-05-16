@@ -1295,6 +1295,7 @@ class FlyteRemote(object):
         md5_bytes: bytes,
         serialization_settings: SerializationSettings,
         default_inputs: typing.Optional[Dict[str, typing.Any]] = None,
+        additional_context_bytes: typing.List[bytes] = None,
         *additional_context: str,
     ) -> str:
         """
@@ -1311,6 +1312,7 @@ class FlyteRemote(object):
         from flytekit import __version__
 
         additional_context = additional_context or []
+        additional_context_bytes = additional_context_bytes or []
 
         h = hashlib.md5(md5_bytes)
         h.update(bytes(serialization_settings.to_json(), "utf-8"))
@@ -1318,6 +1320,8 @@ class FlyteRemote(object):
 
         for s in additional_context:
             h.update(bytes(s, "utf-8"))
+        for b in additional_context_bytes:
+            h.update(b)
 
         if default_inputs:
             try:
@@ -1440,6 +1444,10 @@ class FlyteRemote(object):
             if isinstance(entity, WorkflowBase):
                 default_inputs = entity.python_interface.default_inputs_as_kwargs
 
+            from flytekit.configuration.plugin import get_plugin
+
+            version_hash_additional_context = get_plugin().get_additional_context_for_version_hash(entity)
+
             # The md5 version that we send to S3/GCS has to match the file contents exactly,
             # but we don't have to use it when registering with the Flyte backend.
             # For that add the hash of the compilation settings to hash of file
@@ -1449,6 +1457,7 @@ class FlyteRemote(object):
                 default_inputs,
                 *FlyteRemote._get_image_names(entity),
                 *FlyteRemote._get_pod_template_hash(entity),
+                additional_context_bytes=version_hash_additional_context,
             )
 
         serialization_settings.version = version
