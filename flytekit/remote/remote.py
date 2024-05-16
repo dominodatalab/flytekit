@@ -738,6 +738,9 @@ class FlyteRemote(object):
         This method serializes and register the given Flyte entity
         :return: Identifier of the registered entity
         """
+        from flytekit.configuration.plugin import get_plugin;
+        get_plugin().configure_pyflyte_run_inputs_special(entity._interface._inputs)
+
         m = OrderedDict()
         # Create dummy serialization settings for now.
         # TODO: Clean this up by using lazy usage of serialization settings in translator.py
