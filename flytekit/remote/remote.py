@@ -33,6 +33,7 @@ from flytekit import ImageSpec
 from flytekit.clients.friendly import SynchronousFlyteClient
 from flytekit.clients.helpers import iterate_node_executions, iterate_task_executions
 from flytekit.configuration import Config, FastSerializationSettings, ImageConfig, SerializationSettings
+from flytekit.configuration.plugin import get_plugin
 from flytekit.core import constants, utils
 from flytekit.core.artifact import Artifact
 from flytekit.core.base_task import PythonTask
@@ -738,7 +739,6 @@ class FlyteRemote(object):
         This method serializes and register the given Flyte entity
         :return: Identifier of the registered entity
         """
-        from flytekit.configuration.plugin import get_plugin;
         get_plugin().configure_pyflyte_run_inputs_special(entity._interface._inputs)
 
         m = OrderedDict()
@@ -1116,7 +1116,7 @@ class FlyteRemote(object):
         :param cluster_pool: Specify cluster pool on which newly created execution should be placed.
         :returns: :class:`~flytekit.remote.workflow_execution.FlyteWorkflowExecution`
         """
-        from flytekit.configuration.plugin import get_plugin; get_plugin().configure_pyflyte_run_inputs_literal(inputs)
+        get_plugin().configure_pyflyte_run_inputs_literal(inputs)
         if execution_name is not None and execution_name_prefix is not None:
             raise ValueError("Only one of execution_name and execution_name_prefix can be set, but got both set")
         execution_name_prefix = execution_name_prefix + "-" if execution_name_prefix is not None else None
