@@ -58,7 +58,7 @@ class FlytekitPluginProtocol(Protocol):
 
     @staticmethod
     def configure_pyflyte_inputs_at_register(typed_input_interface: Dict[str, Any]):
-        """Configure pyflyte's inputs at the realize and register entity level."""
+        """Configure pyflyte's inputs at the serialize and register entity level."""
 
     @staticmethod
     def configure_pyflyte_inputs_at_execute(inputs: Dict[str, Any]):
@@ -110,7 +110,7 @@ class FlytekitPlugin:
 
     @staticmethod
     def configure_pyflyte_inputs_at_register(typed_input_interface: Dict[str, Any]):
-        """Configure pyflyte's inputs at the realize and register entity level."""
+        """Configure pyflyte's inputs at the serialize and register entity level."""
         pass
 
     @staticmethod
