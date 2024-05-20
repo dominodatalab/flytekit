@@ -739,7 +739,7 @@ class FlyteRemote(object):
         This method serializes and register the given Flyte entity
         :return: Identifier of the registered entity
         """
-        get_plugin().configure_pyflyte_run_inputs_special(entity._interface._inputs)
+        get_plugin().configure_pyflyte_inputs_at_register(entity._interface._inputs)
 
         m = OrderedDict()
         # Create dummy serialization settings for now.
@@ -1116,7 +1116,7 @@ class FlyteRemote(object):
         :param cluster_pool: Specify cluster pool on which newly created execution should be placed.
         :returns: :class:`~flytekit.remote.workflow_execution.FlyteWorkflowExecution`
         """
-        get_plugin().configure_pyflyte_run_inputs_literal(inputs)
+        get_plugin().configure_pyflyte_inputs_at_execute(inputs)
         if execution_name is not None and execution_name_prefix is not None:
             raise ValueError("Only one of execution_name and execution_name_prefix can be set, but got both set")
         execution_name_prefix = execution_name_prefix + "-" if execution_name_prefix is not None else None

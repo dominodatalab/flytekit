@@ -21,6 +21,7 @@ from typing import Optional, Protocol, runtime_checkable
 
 from click import Group
 from importlib_metadata import entry_points
+from typing import Any, Dict
 
 from flytekit.configuration import Config, get_config_file
 from flytekit.loggers import logger
@@ -50,6 +51,19 @@ class FlytekitPluginProtocol(Protocol):
     @staticmethod
     def get_auth_success_html(endpoint: str) -> Optional[str]:
         """Get default success html for auth. Return None to use flytekit's default success html."""
+
+    @staticmethod
+    def configure_pyflyte_inputs_at_run(input_interface: Dict[str, Any]):
+        """Configure pyflyte's inputs at the run_command level."""
+
+    @staticmethod
+    def configure_pyflyte_inputs_at_register(typed_input_interface: Dict[str, Any]):
+        """Configure pyflyte's inputs at the realize and register entity level."""
+
+    @staticmethod
+    def configure_pyflyte_inputs_at_execute(inputs: Dict[str, Any]):
+        """Configure pyflyte's inputs at the execute entity level."""
+
 
 
 class FlytekitPlugin:
@@ -88,6 +102,21 @@ class FlytekitPlugin:
     def get_auth_success_html(endpoint: str) -> Optional[str]:
         """Get default success html. Return None to use flytekit's default success html."""
         return None
+
+    @staticmethod
+    def configure_pyflyte_inputs_at_run(input_interface: Dict[str, Any]):
+        """Configure pyflyte's inputs at the run_command level."""
+        pass
+
+    @staticmethod
+    def configure_pyflyte_inputs_at_register(typed_input_interface: Dict[str, Any]):
+        """Configure pyflyte's inputs at the realize and register entity level."""
+        pass
+
+    @staticmethod
+    def configure_pyflyte_inputs_at_execute(inputs: Dict[str, Any]):
+        """Configure pyflyte's inputs at the execute entity level."""
+        pass
 
 
 def _get_plugin_from_entrypoint():
