@@ -533,7 +533,7 @@ def run_command(ctx: click.Context, entity: typing.Union[PythonFunctionWorkflow,
                         )
                 inputs[input_name] = processed_click_value
 
-            get_plugin().configure_pyflyte_entity_at_run(entity._python_interface._inputs)
+            get_plugin().configure_pyflyte_inputs_at_run(entity._python_interface._inputs)
 
             if not run_level_params.is_remote:
                 with FlyteContextManager.with_context(_update_flyte_context(run_level_params)):
