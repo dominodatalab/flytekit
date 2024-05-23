@@ -55,7 +55,7 @@ class FlytekitPluginProtocol(Protocol):
         """Get default success html for auth. Return None to use flytekit's default success html."""
 
     @staticmethod
-    def get_additional_context(entity: Union[PythonAutoContainerTask, WorkflowBase]) -> List[str]:
+    def get_additional_context_for_version_hash(entity: Union[PythonAutoContainerTask, WorkflowBase]) -> List[str]:
         """Get additional context to be used for calculating the version hash."""
 
 
@@ -98,7 +98,7 @@ class FlytekitPlugin:
         return None
 
     @staticmethod
-    def get_additional_context(entity: Union[PythonAutoContainerTask, WorkflowBase]) -> List[str]:
+    def get_additional_context_for_version_hash(entity: Union[PythonAutoContainerTask, WorkflowBase]) -> List[str]:
         """Get additional context to be used for calculating the version hash."""
         return []
 
