@@ -829,6 +829,8 @@ class FlyteRemote(object):
     ) -> typing.Tuple[str, typing.Optional[PickledEntity]]:
         if version is None and self.interactive_mode_enabled:
             md5_bytes, pickled_target_dict = _get_pickled_target_dict(entity)
+            print("resolve_version")
+            import pickle; print(pickle.dumps(entity))
             return self._version_from_hash(
                 md5_bytes, ss, entity.python_interface.default_inputs_as_kwargs, *self._get_image_names(entity)
             ), pickled_target_dict
@@ -1381,6 +1383,8 @@ class FlyteRemote(object):
 
             version_hash_additional_context = get_plugin().get_additional_context_for_version_hash(entity)
 
+            print("register_script")
+            import pickle; print(pickle.dumps(entity)); print(pickle.dumps(version_hash_additional_context))
             # The md5 version that we send to S3/GCS has to match the file contents exactly,
             # but we don't have to use it when registering with the Flyte backend.
             # For that add the hash of the compilation settings to hash of file
@@ -2265,6 +2269,8 @@ class FlyteRemote(object):
         pickled_target_dict = None
         if version is None and self.interactive_mode_enabled:
             md5_bytes, pickled_target_dict = _get_pickled_target_dict(entity)
+            print("register_wf")
+            import pickle; print(pickle.dumps(entity))
             version = self._version_from_hash(
                 md5_bytes, ss, entity.python_interface.default_inputs_as_kwargs, *self._get_image_names(entity)
             )
