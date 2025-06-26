@@ -218,6 +218,7 @@ def _get_pickled_target_dict(
     :param root_entity: The entity to get the pickled target for.
         :return: hashed bytes and the pickled target dictionary.
     """
+    print("_get_pickled_target_dict")
     import sys
 
     queue: typing.List[typing.Union[WorkflowBase, PythonTask, CoreNode]] = [root_entity]
@@ -252,6 +253,7 @@ def _get_pickled_target_dict(
                 queue.append(task)
         elif isinstance(entity, CoreNode):
             queue.append(entity.flyte_entity)
+    print(pickled_target_dict)
     md5_bytes = hashlib.md5(cloudpickle.dumps(pickled_target_dict)).digest()
     return md5_bytes, pickled_target_dict
 
@@ -828,7 +830,6 @@ class FlyteRemote(object):
         self, version: typing.Optional[str], entity: typing.Any, ss: SerializationSettings
     ) -> typing.Tuple[str, typing.Optional[PickledEntity]]:
         print("resolve_version")
-        import pickle; print(pickle.dumps(entity))
         if version is None and self.interactive_mode_enabled:
             md5_bytes, pickled_target_dict = _get_pickled_target_dict(entity)
             return self._version_from_hash(
@@ -1284,6 +1285,10 @@ class FlyteRemote(object):
             except TypeError:  # cannot pickle errors
                 logger.info("Skip pickling default inputs.")
 
+        print(md5_bytes)
+        print(serialization_settings.to_json())
+        print(__version__)
+        print(cloudpickle.dumps(default_inputs))
         # Omit the character '=' from the version as that's essentially padding used by the base64 encoding
         # and does not increase entropy of the hash while making it very inconvenient to copy-and-paste.
         return base64.urlsafe_b64encode(h.digest()).decode("ascii").rstrip("=")
@@ -1384,7 +1389,6 @@ class FlyteRemote(object):
             version_hash_additional_context = get_plugin().get_additional_context_for_version_hash(entity)
 
             print("register_script")
-            import pickle; print(pickle.dumps(entity)); print(pickle.dumps(version_hash_additional_context))
             # The md5 version that we send to S3/GCS has to match the file contents exactly,
             # but we don't have to use it when registering with the Flyte backend.
             # For that add the hash of the compilation settings to hash of file
@@ -2270,7 +2274,6 @@ class FlyteRemote(object):
         if version is None and self.interactive_mode_enabled:
             md5_bytes, pickled_target_dict = _get_pickled_target_dict(entity)
             print("register_wf")
-            import pickle; print(pickle.dumps(entity))
             version = self._version_from_hash(
                 md5_bytes, ss, entity.python_interface.default_inputs_as_kwargs, *self._get_image_names(entity)
             )
