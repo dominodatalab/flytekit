@@ -827,10 +827,10 @@ class FlyteRemote(object):
     def _resolve_version(
         self, version: typing.Optional[str], entity: typing.Any, ss: SerializationSettings
     ) -> typing.Tuple[str, typing.Optional[PickledEntity]]:
+        print("resolve_version")
+        import pickle; print(pickle.dumps(entity))
         if version is None and self.interactive_mode_enabled:
             md5_bytes, pickled_target_dict = _get_pickled_target_dict(entity)
-            print("resolve_version")
-            import pickle; print(pickle.dumps(entity))
             return self._version_from_hash(
                 md5_bytes, ss, entity.python_interface.default_inputs_as_kwargs, *self._get_image_names(entity)
             ), pickled_target_dict
