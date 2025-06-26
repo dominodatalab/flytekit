@@ -1060,7 +1060,11 @@ class FlyteRemote(object):
                 domain=self.default_domain,
             )
 
+        print("register task")
+        print(entity)
+        print(version)
         ident = run_sync(self._serialize_and_register, entity=entity, settings=serialization_settings, version=version)
+        print(ident)
 
         ft = self.fetch_task(
             ident.project,
