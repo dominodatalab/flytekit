@@ -1252,7 +1252,7 @@ class FlyteRemote(object):
             if is_display_progress_enabled():
                 upload_package_progress.stop()
 
-        developer_print(
+        print(
             f"Uploading {to_upload} to {upload_location.signed_url} native url {upload_location.native_url}"
         )
 
@@ -1576,7 +1576,7 @@ class FlyteRemote(object):
                         try:
                             type_hints[k] = strict_type_hint_matching(v, input_flyte_type_map[k].type)
                         except ValueError:
-                            developer_print(
+                            print(
                                 f"Could not guess type for {input_flyte_type_map[k].type}, skipping..."
                             )
                             type_hints[k] = TypeEngine.guess_python_type(input_flyte_type_map[k].type)
