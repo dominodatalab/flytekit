@@ -925,6 +925,8 @@ class FlyteRemote(object):
                 version = cp_entity.id.version
             ident = self._resolve_identifier(ResourceType.WORKFLOW, cp_entity.template.id.name, version, settings)
             try:
+                print("try")
+                print(ident)
                 self.client.create_workflow(workflow_identifier=ident, workflow_spec=cp_entity)
             except FlyteEntityAlreadyExistsException:
                 print(f" {ident} Already Exists!")
