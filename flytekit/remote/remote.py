@@ -930,6 +930,8 @@ class FlyteRemote(object):
                 self.client.create_workflow(workflow_identifier=ident, workflow_spec=cp_entity)
             except FlyteEntityAlreadyExistsException:
                 print(f" {ident} Already Exists!")
+            except Exception as e:
+                print(f"An error occurred: {e}")
 
             print(ident)
             print(create_default_launchplan)
