@@ -920,6 +920,7 @@ class FlyteRemote(object):
             return ident
 
         if isinstance(cp_entity, admin_workflow_models.WorkflowSpec):
+            print("WorkflowSpec")
             if isinstance(cp_entity, FlyteWorkflow):
                 version = cp_entity.id.version
             ident = self._resolve_identifier(ResourceType.WORKFLOW, cp_entity.template.id.name, version, settings)
@@ -927,6 +928,9 @@ class FlyteRemote(object):
                 self.client.create_workflow(workflow_identifier=ident, workflow_spec=cp_entity)
             except FlyteEntityAlreadyExistsException:
                 print(f" {ident} Already Exists!")
+
+            print(ident)
+            print(create_default_launchplan)
 
             if create_default_launchplan:
                 if not og_entity:
@@ -947,11 +951,14 @@ class FlyteRemote(object):
                     recurse_downstream=False,
                     options=options,
                 )
+                print("create_launch_plan")
                 try:
                     self.client.create_launch_plan(lp_entity.id, lp_entity.spec)
                 except FlyteEntityAlreadyExistsException:
                     print(f" {lp_entity.id} Already Exists!")
             return ident
+
+        print("ok 957")
 
         if isinstance(cp_entity, launch_plan_models.LaunchPlan):
             ident = self._resolve_identifier(ResourceType.LAUNCH_PLAN, cp_entity.id.name, version, settings)
