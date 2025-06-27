@@ -927,6 +927,7 @@ class FlyteRemote(object):
             try:
                 print("try")
                 print(ident)
+                import pickle; print(pickle.dumps(cp_entity))
                 self.client.create_workflow(workflow_identifier=ident, workflow_spec=cp_entity)
             except FlyteEntityAlreadyExistsException:
                 print(f" {ident} Already Exists!")
