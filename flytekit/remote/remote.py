@@ -1403,6 +1403,9 @@ class FlyteRemote(object):
             default_inputs = None
             if isinstance(entity, WorkflowBase):
                 default_inputs = entity.python_interface.default_inputs_as_kwargs
+                print("pre get_additional_context_for_version_hash")
+                for n in entity.nodes:
+                    print(n.bindings)
 
             from flytekit.configuration.plugin import get_plugin
 
