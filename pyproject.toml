@@ -20,8 +20,7 @@ dependencies = [
     "diskcache>=5.2.1",
     "docker>=4.0.0",
     "docstring-parser>=0.9.0",
-    # Points to the 1.16.4-domino branch 
-    "flyteidl @ git+https://github.com/dominodatalab/flyte.git@f638b2661963885651dd3be8cc9b958010f041cf#subdirectory=flyteidl",
+    "flyteidl>=1.15.4b0,<2.0.0a0",
     "fsspec>=2023.3.0",
     # Bug in 2025.5.0, 2025.5.0post1 https://github.com/fsspec/gcsfs/issues/687
     # Bug in 2024.2.0 https://github.com/fsspec/gcsfs/pull/643
